@@ -53,7 +53,7 @@ namespace Crud.App.UI.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "ManagerOnly")]
+       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "ManagerOnly")]
         [HttpPost("getalldatafromresource")]
         public IActionResult getalldatafromresource()
         {

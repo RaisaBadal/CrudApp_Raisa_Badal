@@ -13,8 +13,8 @@ namespace Crud.App.DataSource.JsonDecerialize
         public string username { get; set; }
         public string email { get; set; }
 
-        public JsonAdrress JsonAdrress { get; set; }
-        public JsonCompany jsoncompany { get; set; }
+        public JsonAdrress address { get; set; }
+        public JsonCompany company { get; set; }
    
     }
 }

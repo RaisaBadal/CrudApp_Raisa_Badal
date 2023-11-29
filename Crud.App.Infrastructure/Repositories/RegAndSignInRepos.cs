@@ -218,24 +218,45 @@ namespace Crud.App.Infrastructure.Repositories
                     string piradi = "3454444" + rand.Next(1000, 9999).ToString();
                     foreach (var item in users)
                     {
+                        Console.WriteLine("----------------1");
+                        Console.WriteLine(item.address.city);
                         string[] name = item.name.Split(' ');
-                        var insertreq = new InsertUsers()
+                        dbraisa.UserAddresses.Add(new UserAddress()
                         {
-                            City = item.JsonAdrress.city,
-                            bs = item.jsoncompany.bs,
+                            City = item.address.city,
+                            Street = item.address.street,
+                            ZipCode = item.address.zipcode
+                        });
+                        dbraisa.Companys.Add(new Company()
+                        {
+                            Name=item.company.name,
+                            catchPhrase= item.company.catchPhrase,
+                            bs= item.company.bs
+                        });
+                        dbraisa.SaveChanges();
+                        int userAddressID = dbraisa.UserAddresses.Max(i=>i.UserAddressID);
+                        int companyidd = dbraisa.Companys.Max(i => i.ID);
+                        dbraisa.UserProfiles.Add(new UserProfile()
+                        {
                             FirstName = name[0],
                             LastName = name[1],
-                            catchPhrase = item.jsoncompany.catchPhrase,
-                            Email = item.email,
-                            isActive = true,
-                            Password = "Crud2023",
-                            Street = item.JsonAdrress.street,
-                            UserName = item.username,
-                            ZipCode = item.JsonAdrress.zipcode,
-                            Name = item.jsoncompany.name,
-                            PersonalNumber = piradi,
-                        };
-                        usereg.InsertUser(insertreq);
+                            AddressID= userAddressID,
+                            CompanyID= companyidd,
+                            PersonalNumber=piradi,
+                            
+                        });
+                        dbraisa.SaveChanges();
+                        int userprofid = dbraisa.UserProfiles.Max(i => i.UserProfileID);
+                        dbraisa.Users.Add(new User()
+                        {
+                            Email=item.email,
+                            isActive=true,
+                            PasswordHash="crudapp2123",
+                            UserName=item.username,
+                            UserProfileID=userprofid
+                        });
+                        dbraisa.SaveChanges();
+                       
                     }
                 }
             }
